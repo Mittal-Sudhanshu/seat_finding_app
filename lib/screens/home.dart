@@ -18,7 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void scrollToSeat(int seatNumber) {
     // Calculate the row and index of the seat
     int row = (seatNumber - 1) ~/ 4;
-    print(row);
+    // print(row);
     int index = (seatNumber - 1) % 4;
 
     // Scroll to the position
@@ -62,6 +62,17 @@ class _HomeScreenState extends State<HomeScreen> {
                           onPressed: searchController.text.isEmpty
                               ? () {}
                               : () {
+                                  int n = int.parse(searchController.text);
+                                  print(n);
+                                  if (int.parse(searchController.text) > 80 ||
+                                      int.parse(searchController.text) < 1) {
+                                    print(n);
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        const SnackBar(
+                                            content: Text(
+                                                'Seat number must be between 1 and 80')));
+                                    return;
+                                  }
                                   scrollToSeat(
                                       int.parse(searchController.text));
                                 }),
@@ -78,6 +89,15 @@ class _HomeScreenState extends State<HomeScreen> {
                         onPressed: searchController.text.isEmpty
                             ? () {}
                             : () {
+                                if (int.parse(searchController.text) > 80 ||
+                                    int.parse(searchController.text) < 1) {
+                                  // print(n);
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                          content: Text(
+                                              'Seat number must be between 1 and 80')));
+                                  return;
+                                }
                                 scrollToSeat(int.parse(searchController.text));
                               },
                         child: Text('Search')),
